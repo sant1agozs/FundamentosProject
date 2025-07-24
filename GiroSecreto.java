@@ -25,6 +25,7 @@ public class App {
       out.println("Ingresa la secuencia de 5 respuestas invertidas:");
       out.println("Los primeros 4 deben ser palabras al revés. El último, un número invertido.");
 
+      // Captura de respuestas para cada paso (todas en minúscula excepto la última que es numérica)
       out.print("Paso 1: ");
       g1 = in.readLine().toLowerCase();
 
@@ -40,6 +41,10 @@ public class App {
       out.print("Paso 5: ");
       g5 = in.readLine();
 
+      // Validación estricta de las respuestas correctas al revés:
+      // 1 = izquierda → "izquierda" → "adreiuqzi"
+      // 2 = derecha   → "derecha"   → "ahcered"
+      // 0 = 4! = 24   → invertido: "42"
       if (g1.equals("adreiuqzi") &&
           g2.equals("ahcered") &&
           g3.equals("adreiuqzi") &&
@@ -51,6 +56,7 @@ public class App {
         out.println("Dentro, una inscripción: 'A veces la verdad está del otro lado... literalmente.'");
         logroCuadro = true;
       } else {
+        // Si falla cualquier paso, se muestra una pista sutil para replantear el enfoque
         out.println("Nada sucede. Tal vez deberías mirar las cosas desde otro ángulo...");
       }
 
@@ -58,12 +64,13 @@ public class App {
 
     } while (!logroCuadro && intentos < 5);
 
+    // Finalización según éxito o bloqueo
     if (!logroCuadro) {
       out.println();
       out.println("El mecanismo del cuadro se bloquea. La pista ha quedado fuera de alcance.");
     } else {
       out.println();
       out.println("Has obtenido una pista clave del cuadro.");
-}
+    }
   }
 }
