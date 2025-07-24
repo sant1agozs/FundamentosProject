@@ -18,7 +18,7 @@ public class App {
 
         do {
             out.println();
-            out.println("0, 1, 4, 9, 16 y... ?");
+            out.println("0, 1, 4, 9, 16 y... ?"); // 5!
             out.print("Ingresa el número que continúa la secuencia: ");
             entrada = in.readLine();
 
