@@ -7,7 +7,6 @@ public class App {
     static PrintStream out = System.out;
 
     public static void main(String[] args) throws Exception {
-        // Declaración de variables
         boolean logroCajon = false;
         int intentos = 0;
         String entrada = "";
@@ -23,9 +22,11 @@ public class App {
             out.print("Ingresa el número que continúa la secuencia: ");
             entrada = in.readLine();
 
+            // Validación de que la entrada sea numérica
             if (entrada.matches("[0-9]+")) {
                 respuesta = Integer.parseInt(entrada);
 
+                // Verifica si la respuesta corresponde al siguiente cuadrado perfecto (5^2 = 25)
                 if (respuesta == 25) {
                     out.println();
                     out.println("El cajón hace clic... la cerradura ha cedido.");
@@ -40,18 +41,20 @@ public class App {
 
             intentos++;
 
+            // Pista textual tras el segundo intento fallido
             if (!logroCajon && intentos == 2) {
                 out.println("Esta secuencia es potente, eh...");
             }
 
         } while (!logroCajon && intentos < 3);
 
+        // Resultado final según éxito o fracaso en el minijuego
         if (!logroCajon) {
             out.println();
             out.println("Has agotado los intentos. El mecanismo del cajón se traba definitivamente.");
         } else {
             out.println();
             out.println("Has obtenido una pista clave del cajón.");
-            }
         }
+    }
 }
