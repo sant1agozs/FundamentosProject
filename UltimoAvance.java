@@ -8,6 +8,7 @@ public class App {
 
   public static void main(String[] args) throws Exception {
 
+    // Variables que controlan el estado del juego
     String opcion;
     boolean enigmaNumericoResuelto = false;
     boolean cajaColoresResuelta = false;
@@ -15,10 +16,11 @@ public class App {
     boolean codigosTizaResuelto = false;
     boolean cuadroContradiccionResuelto = false;
     boolean manecillasJuicioResuelto = false;
-    int minijuegosCompletados = 0;
-    int intentosEscapeFallidos = 0;
+    int minijuegosCompletados = 0;     // Contador de minijuegos ganados
+    int intentosEscapeFallidos = 0;    // Contador de intentos de huida fallidos
     String predefinido = "Este desafío ya ha sido completado";
 
+    // Bucle principal que muestra el menú hasta que el jugador quiera salir o haya perdido
     do {
       out.println("\n===== ESCAPE ROOM - ULTIMO AVANCE =====");
       out.println("Selecciona el minijuego que deseas jugar:");
@@ -33,62 +35,51 @@ public class App {
       out.print("Opción: ");
       opcion = in.readLine();
 
+      // Switch que llama a la rutina correspondiente
       switch (opcion) {
-        case "1":
+        case "1": // Enigma Numérico
           if (!enigmaNumericoResuelto) {
             boolean completado = jugarEnigmaNumerico();
             if (completado) { enigmaNumericoResuelto = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "2":
+        case "2": // Caja de Colores
           if (!cajaColoresResuelta) {
             boolean completado = jugarCajaColores();
             if (completado) { cajaColoresResuelta = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "3":
+        case "3": // Libro de la Sombra
           if (!libroSombraResuelto) {
             boolean completado = jugarLibroSombra();
             if (completado) { libroSombraResuelto = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "4":
+        case "4": // Códigos de Tiza
           if (!codigosTizaResuelto) {
             boolean completado = jugarCodigosTiza();
             if (completado) { codigosTizaResuelto = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "5":
+        case "5": // Cuadro de la Contradicción
           if (!cuadroContradiccionResuelto) {
             boolean completado = jugarCuadroContradiccion();
             if (completado) { cuadroContradiccionResuelto = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "6":
+        case "6": // Manecillas del Juicio
           if (!manecillasJuicioResuelto) {
             boolean completado = jugarManecillasJuicio();
             if (completado) { manecillasJuicioResuelto = true; minijuegosCompletados++; }
-          } else {
-            out.println(predefinido);
-          }
+          } else { out.println(predefinido); }
           break;
 
-        case "7":
+        case "7": // Mostrar progreso actual
           verProgreso(
             enigmaNumericoResuelto,
             cajaColoresResuelta,
@@ -100,8 +91,8 @@ public class App {
           );
           break;
 
-        case "0":
-          if (minijuegosCompletados < 6) {
+        case "0": // Intentar huir
+          if (minijuegosCompletados < 6) { // Aún no completó todo
             intentosEscapeFallidos++;
             if (intentosEscapeFallidos == 1) {
               out.println("Una voz firme retumba en la habitación:");
@@ -110,21 +101,22 @@ public class App {
               out.println("Ignoraste la advertencia... La habitación se oscurece.");
               out.println("Quedas atrapado para siempre en este Escape Room.");
             }
-          } else {
+          } else { // Ganó todos los minijuegos
             out.println("Con todos los desafíos completados, la puerta principal se abre.");
             out.println("¡Has logrado escapar con éxito del Escape Room!");
           }
           break;
 
-        default:
+        default: // Entrada inválida
           out.println("Opción no válida. Intenta de nuevo.");
       }
 
-    } while (!(opcion.equals("0") && intentosEscapeFallidos >= 2));
+    } while (!(opcion.equals("0") && intentosEscapeFallidos >= 2)); // Condición de salida definitiva
   }
 
-  // ================== RUTINAS (devuelven true si se completo) ==================
+  // ================== RUTINAS DE MINIJUEGOS ==================
 
+  // Minijuego 1: Adivinar un número entre 10 y 20 divisible por 3
   static boolean jugarEnigmaNumerico() throws Exception {
     String entradaUsuario;
     int numero, intentos = 1;
@@ -138,11 +130,11 @@ public class App {
     do {
       out.print("Intento #" + intentos + " - Ingresa tu número: ");
       entradaUsuario = in.readLine();
-      entradaValida = entradaUsuario.matches("\\d+");
+      entradaValida = entradaUsuario.matches("\\d+"); // Validar que sea número
 
       if (entradaValida) {
         numero = Integer.parseInt(entradaUsuario);
-        if (numero == 12 || numero == 15 || numero == 18) {
+        if (numero == 12 || numero == 15 || numero == 18) { // Respuestas correctas
           out.println("¡Correcto! La puerta se abre lentamente y puedes avanzar.");
           acertado = true;
         } else {
@@ -164,6 +156,7 @@ public class App {
     return acertado;
   }
 
+  // Minijuego 2: Elegir el color correcto (azul)
   static boolean jugarCajaColores() throws Exception {
     String colorElegido;
     boolean entradaValida;
@@ -182,7 +175,7 @@ public class App {
       if (!entradaValida) {
         out.println("Entrada inválida. Solo puedes elegir: rojo, azul o verde.");
       } else {
-        if (colorElegido.equals("azul")) {
+        if (colorElegido.equals("azul")) { // Respuesta correcta
           out.println("¡Has elegido el color correcto! Has encontrado una llave en la caja.");
           tieneLlave = true;
           break;
@@ -203,6 +196,7 @@ public class App {
     return tieneLlave;
   }
 
+  // Minijuego 3: Elegir el libro correcto (El segundo)
   static boolean jugarLibroSombra() throws Exception {
     String seleccion;
     int intentos = 0;
@@ -219,7 +213,7 @@ public class App {
       seleccion = in.readLine();
       intentos++;
 
-      if (seleccion.equals("2")) {
+      if (seleccion.equals("2")) { // Libro correcto
         out.println("Has abierto el libro correcto. Dentro encuentras una nota antigua con una pista.");
         pistaEncontrada = true;
       } else if (seleccion.equals("1") || seleccion.equals("3")) {
@@ -235,6 +229,7 @@ public class App {
     return pistaEncontrada;
   }
 
+  // Minijuego 4: Secuencia de cuadrados perfectos (respuesta 25)
   static boolean jugarCodigosTiza() throws Exception {
     String respuesta;
     int intentos = 0;
@@ -248,7 +243,7 @@ public class App {
       respuesta = in.readLine();
       intentos++;
 
-      if (respuesta.matches("[0-9]+") && respuesta.equals("25")) {
+      if (respuesta.matches("[0-9]+") && respuesta.equals("25")) { // Cuadrado de 5
         out.println("¡Correcto! Has descifrado la secuencia.");
         correcto = true;
       } else {
@@ -265,6 +260,7 @@ public class App {
     return correcto;
   }
 
+  // Minijuego 5: Resolver secuencia invertida con izquierda/derecha y factorial
   static boolean jugarCuadroContradiccion() throws Exception {
     boolean logroCuadro = false;
     int intentos = 0;
@@ -279,6 +275,7 @@ public class App {
     out.println("Una frase rayada dice: \"Las respuestas deben ser escritas AL REVÉS...\"");
 
     do {
+      // Se piden 5 respuestas
       out.println("\nIngresa la secuencia de 5 respuestas invertidas:");
       out.print("Paso 1: "); g1 = in.readLine().toLowerCase();
       out.print("Paso 2: "); g2 = in.readLine().toLowerCase();
@@ -286,6 +283,7 @@ public class App {
       out.print("Paso 4: "); g4 = in.readLine().toLowerCase();
       out.print("Paso 5: "); g5 = in.readLine();
 
+      // Combinación correcta
       if (g1.equals("adreiuqzi") && g2.equals("ahcered") && g3.equals("adreiuqzi") &&
           g4.equals("ahcered") && g5.equals("42")) {
         out.println("¡Acertaste!");
@@ -306,6 +304,7 @@ public class App {
     return logroCuadro;
   }
 
+  // Minijuego 6: Desafío final con binarios, suma, multiplicación y número oculto
   static boolean jugarManecillasJuicio() throws Exception {
     int intentos = 0;
     boolean completado = false;
@@ -318,6 +317,7 @@ public class App {
     out.println("Tal vez si los desciframos uno a uno...");
 
     while (intentos < 5 && !completado) {
+      // Preguntar cada número binario
       out.print("¿Qué número representa el primer 0001? ");
       r1 = in.readLine();
 
@@ -330,10 +330,12 @@ public class App {
       out.print("¿Y 0100? ");
       r4 = in.readLine();
 
+      // Validación correcta → hora 11:34
       if (r1.equals("1") && r2.equals("1") && r3.equals("3") && r4.equals("4")) {
         out.println("\nHas formado la hora: 11:34.");
         out.println("Las manecillas marcan el tiempo exacto. Pero...");
 
+        // Suma de los dígitos
         out.println("¿Qué sucede si sumamos cada dígito de la hora?");
         out.print("Ingresa la suma de 1 + 1 + 3 + 4: ");
         suma = in.readLine();
@@ -343,6 +345,7 @@ public class App {
           out.println("Parece que hay algo más escondido detrás del tiempo...");
           out.println("Una inscripción aparece: 'Multiplica la suma de la hora por la cantidad de desafíos en este lugar.'");
 
+          // Multiplicación por total de minijuegos (6)
           out.print("¿Cuál es el resultado de 9 x 6? ");
           mult = in.readLine();
 
@@ -351,6 +354,7 @@ public class App {
             out.println("Una hoja ennegrecida cae desde el techo con una sola frase:");
             out.println("\"Usa el lenguaje del silencio para continuar.\"");
 
+            // Paso final
             out.print("Ingresa el número 54 multiplicado por 4: ");
             morse = in.readLine();
 
@@ -383,7 +387,7 @@ public class App {
     return completado;
   }
 
-  // ================== Rutina de estado ==================
+  // ================== Mostrar progreso de minijuegos ==================
   static void verProgreso(
       boolean enigmaNumericoResuelto,
       boolean cajaColoresResuelta,
@@ -395,12 +399,14 @@ public class App {
   ) {
     out.println("\n===== PROGRESO DEL JUGADOR =====");
     out.println("Desafíos:");
+    // Mostrar estado de cada minijuego (Completado / Sin completar)
     out.println("1. Enigma Numérico: " + (enigmaNumericoResuelto ? "Completado" : "Sin completar"));
     out.println("2. Caja de Colores: " + (cajaColoresResuelta ? "Completado" : "Sin completar"));
     out.println("3. El Libro de la Sombra: " + (libroSombraResuelto ? "Completado" : "Sin completar"));
     out.println("4. Códigos de Tiza: " + (codigosTizaResuelto ? "Completado" : "Sin completar"));
     out.println("5. El Cajón de la Contradicción: " + (cuadroContradiccionResuelto ? "Completado" : "Sin completar"));
     out.println("6. Las Manecillas del Juicio: " + (manecillasJuicioResuelto ? "Completado" : "Sin completar"));
+    // Mostrar el total de juegos completados
     out.println("Total completados: " + minijuegosCompletados + "/6");
   }
 }
