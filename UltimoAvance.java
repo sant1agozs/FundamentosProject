@@ -22,7 +22,7 @@ public class App {
 
     // Bucle principal que muestra el menú hasta que el jugador quiera salir o haya perdido
     do {
-      out.println("\n===== ESCAPE ROOM - ULTIMO AVANCE =====");
+      out.println("\n===== EL ULTIMO JUICIO =====");
       out.println("Selecciona el minijuego que deseas jugar:");
       out.println("1. Enigma Numérico");
       out.println("2. Caja de Colores");
